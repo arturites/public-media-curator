@@ -152,9 +152,7 @@ Set up a cron job in OpenClaw to run the curation on a schedule. The job must be
 Use the following prompt for the cron job:
 
 ```
-1. Read the file <your-workspace-path>/open-media-curator/TODO.md
-2. Follow all instructions contained in that file.
-3. Execute the task completely.
+"Read the file <your-workspace-path>/open-media-curator/TODO.md, follow all instructions contained in it, and execute the task completely."
 ```
 
 Replace `<your-workspace-path>` with the actual path to your OpenClaw workspace.
