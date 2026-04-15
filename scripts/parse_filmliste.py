@@ -3,7 +3,7 @@
 Parse MediathekView Filmliste-akt.xz and emit filtered entries as JSON to stdout.
 
 Usage:
-    python parse_filmliste.py Filmliste-akt.xz [--limit N] [--channels ARD ZDF ARTE]
+    python parse_filmliste.py Filmliste-akt.xz [--limit N] [--channels "ARD", "ZDF", "ARTE.DE"]
 """
 
 import argparse
@@ -95,9 +95,9 @@ def main() -> None:
     parser.add_argument(
         "--channels",
         nargs="+",
-        default=["ARD", "ZDF", "ARTE"],
+        default=["ARD", "ZDF", "ARTE.DE"],
         metavar="CHANNEL",
-        help="Channels to include (default: ARD ZDF ARTE)",
+        help="Channels to include (default: ""ARD"", ""ZDF"", ""ARTE.DE"")",
     )
     args = parser.parse_args()
 
