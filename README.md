@@ -28,13 +28,12 @@ MediathekView (Filmliste)  →  Python Parser  →  OpenClaw  →  Telegram
 
 | File | Purpose |
 |---|---|
-| `SKILL.md` | OpenClaw skill definition. Registers `/givemedocs` and documents the pipeline. |
-| `TODO.md` | The system prompt for OpenClaw. This is the core of the curation logic. |
-| `format.md` | Output template for Telegram messages. Referenced by the prompt. |
+| `SKILL.md` | OpenClaw skill definition. Documents the full pipeline, triggered via `/public_media_curator`. |
+| `format.md` | Output template for Telegram messages. Referenced by the skill. |
 | `profile.example.md` | Example interest profile. Copy to `profile.md` and personalize. |
 | `scripts/parse_filmliste.py` | Downloads and parses the MediathekView film list. |
 
-The prompt tells OpenClaw to run the parser, then load two files at runtime: `profile.md` (your interests) and `format.md` (the output format). You only need to customize `profile.md` — everything else works out of the box.
+The skill loads two files at runtime: `profile.md` (your interests) and `format.md` (the output format). You only need to customize `profile.md` — everything else works out of the box.
 
 ## What You Need
 
@@ -81,12 +80,19 @@ https://docs.openclaw.ai/channels/telegram
 openclaw skills install public-media-curator
 ```
 
+### 6. Enable Native Skill Commands
+
+```bash
+openclaw config set commands.nativeSkills true
+openclaw gateway restart
+```
+
 ### Usage
 
 Run on demand in OpenClaw:
 
 ```
-/givemedocs
+/public_media_curator
 ```
 
 Each run will:

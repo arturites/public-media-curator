@@ -6,16 +6,9 @@ metadata:
     os: ["linux"]
     requires:
       bins: ["curl", "python3"]
-    slash_commands:
-      - name: givemedocs
-        description: Generate documentary recommendations from MediathekView right now
 ---
 
 # public_media_curator
-
-## Trigger
-
-User runs `/givemedocs`.
 
 ## Preconditions
 
