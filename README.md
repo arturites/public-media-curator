@@ -28,6 +28,7 @@ MediathekView (Filmliste)  →  Python Parser  →  OpenClaw  →  Telegram
 
 | File | Purpose |
 |---|---|
+| `SKILL.md` | OpenClaw skill definition. Registers `/givemedocs` and documents the pipeline. |
 | `TODO.md` | The system prompt for OpenClaw. This is the core of the curation logic. |
 | `format.md` | Output template for Telegram messages. Referenced by the prompt. |
 | `profile.example.md` | Example interest profile. Copy to `profile.md` and personalize. |
@@ -39,7 +40,7 @@ The prompt tells OpenClaw to run the parser, then load two files at runtime: `pr
 
 * A home server or VPS (this guide assumes [UmbrelOS](https://umbrel.com/))
 * [OpenClaw](https://openclaw.com/) with Python 3 available in the container
-* A Telegram Bot ([setup instructions below](#4-create-a-telegram-bot))
+* A Telegram Bot
 
 ## Setup
 
@@ -69,29 +70,24 @@ The downloaded film list is ~70 MB and should not be committed:
 Filmliste-akt.xz
 ```
 
-### 4. Create a Telegram Bot
+### 4. Configure Telegram
 
-1. Open Telegram and search for [@BotFather](https://t.me/BotFather).
-2. Send `/newbot` and follow the prompts to choose a name and username.
-3. BotFather will reply with your **Bot Token** — save it.
-4. To get your **Chat ID**: send any message to your new bot, then open `https://api.telegram.org/bot<YOUR-TOKEN>/getUpdates` in a browser. Your Chat ID is in the `chat.id` field.
-5. In OpenClaw, go to **Settings** and add the Bot Token and Chat ID in the Telegram configuration.
+Follow the official OpenClaw documentation:
+https://docs.openclaw.ai/channels/telegram
 
-### 5. Schedule It
+### 5. Install
 
-Set up a cron job in OpenClaw to run the curation on a schedule. The job must be configured as an **isolated job** — otherwise Telegram delivery will fail. Make sure to specify the **channel ID** in the job configuration.
-
-Use the following prompt for the cron job:
-
-```
-"Read the file <your-workspace-path>/public-media-curator/TODO.md, follow all instructions contained in it, and execute the task completely."
+```bash
+openclaw skills install public-media-curator
 ```
 
-Replace `<your-workspace-path>` with the actual path to your OpenClaw workspace.
+### Usage
 
-Example schedule: every Monday at 18:00 Europe/Berlin.
+Run on demand in OpenClaw:
 
-For details on how to create and configure cron jobs, see the [OpenClaw Scheduled Tasks documentation](https://docs.openclaw.ai/automation/cron-jobs).
+```
+/givemedocs
+```
 
 Each run will:
 
@@ -107,9 +103,6 @@ Verify with `docker exec -it openclaw python3 --version`. If missing, install vi
 
 **No results from the parser**
 Check that the download succeeded and the file is not corrupted. Re-run the parser manually with `--limit 10` to verify output.
-
-**Telegram delivery fails**
-Make sure the cron job is configured as an isolated job and the channel ID is set correctly in OpenClaw settings.
 
 ## Tested Models
 
