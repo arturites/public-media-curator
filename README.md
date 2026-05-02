@@ -1,10 +1,14 @@
 # public-media-curator
 
-A self-hosted content curator for German public-service media (ARD, ZDF, Arte).
+A self-hosted content curator for German public-service media (e. g. ARD, ZDF or Arte).
 
 There's a lot of great content buried across the various Mediatheken — documentaries, reports, deep dives — but discovering it means clicking through multiple apps and websites. This project fixes that: it downloads the official MediathekView film list, filters it against your interests, and sends you a compact list of recommendations. **Mediathek highlights without the endless search.**
 
 > **Note:** This project is community-driven and not affiliated with any public broadcaster.
+
+## What This Is
+
+This is an **[OpenClaw](https://openclaw.ai) skill** — a self-contained pipeline definition that runs inside OpenClaw and delivers recommendations via the configured output channel. Support for other agentic frameworks is planned.
 
 ## How It Works
 
@@ -15,7 +19,7 @@ MediathekView (Filmliste)  →  Python Parser  →  OpenClaw  →  Telegram
 
 1. The official [MediathekView](https://mediathekview.de/) film list is downloaded directly — a compressed snapshot of all available content across German public broadcasters.
 2. A Python script unpacks and parses the list, filters by channel (ARD, ZDF, ARTE) and date (last 7 days), and outputs clean JSON.
-3. [OpenClaw](https://openclaw.com/) reads the JSON, matches it against your interest profile, and picks the best recommendations.
+3. OpenClaw reads the JSON, matches it against your interest profile, and picks the best recommendations.
 4. Results are delivered to your phone via Telegram.
 
 ### Why This Setup
@@ -30,66 +34,27 @@ MediathekView (Filmliste)  →  Python Parser  →  OpenClaw  →  Telegram
 |---|---|
 | `SKILL.md` | OpenClaw skill definition. Documents the full pipeline, triggered via `/public_media_curator`. |
 | `format.md` | Output template for Telegram messages. Referenced by the skill. |
-| `profile.example.md` | Example interest profile. Copy to `profile.md` and personalize. |
+| `profile.template.md` | Template interest profile. Copy to `profile.md` and personalize. |
 | `scripts/parse_filmliste.py` | Downloads and parses the MediathekView film list. |
 
 The skill loads two files at runtime: `profile.md` (your interests) and `format.md` (the output format). You only need to customize `profile.md` — everything else works out of the box.
 
-## What You Need
+## Prerequisites
 
-* A home server or VPS (this guide assumes [UmbrelOS](https://umbrel.com/))
-* [OpenClaw](https://openclaw.com/) with Python 3 available in the container
-* A Telegram Bot
+* A running [OpenClaw](https://openclaw.ai) instance with Python 3 available in the container
+* A configured output channel connected to OpenClaw
+* The film list added to `.gitignore` (it's ~70 MB and should not be committed):
+  ```
+  Filmliste-akt.xz
+  ```
 
-## Setup
+## Usage
 
-### 1. Set Up OpenClaw
-
-Install OpenClaw and make sure Python 3 is available in the container:
-
-```bash
-docker exec -it openclaw python3 --version
-```
-
-### 2. Configure Your Interest Profile
-
-Copy the example profile and personalize it:
-
-```bash
-cp profile.example.md profile.md
-```
-
-Edit `profile.md` to describe what you're looking for. OpenClaw uses this profile to score and filter candidates. Adjust it anytime — no restart needed.
-
-### 3. Add the Film List to .gitignore
-
-The downloaded film list is ~70 MB and should not be committed:
-
-```
-Filmliste-akt.xz
-```
-
-### 4. Configure Telegram
-
-Follow the official OpenClaw documentation:
-https://docs.openclaw.ai/channels/telegram
-
-### 5. Install
+Install the skill and run it on demand:
 
 ```bash
 openclaw skills install public-media-curator
 ```
-
-### 6. Enable Native Skill Commands
-
-```bash
-openclaw config set commands.nativeSkills true
-openclaw gateway restart
-```
-
-### Usage
-
-Run on demand in OpenClaw:
 
 ```
 /public_media_curator
@@ -102,6 +67,16 @@ Each run will:
 3. Match against `profile.md`
 4. Send recommendations via Telegram
 
+## Personalizing Your Profile
+
+Copy the template profile and edit it to describe what you're looking for:
+
+```bash
+cp profile.template.md profile.md
+```
+
+OpenClaw uses this profile to score and filter candidates. Adjust it anytime — no restart needed.
+
 ## Troubleshooting
 
 **Python not found in container**
@@ -110,11 +85,9 @@ Verify with `docker exec -it openclaw python3 --version`. If missing, install vi
 **No results from the parser**
 Check that the download succeeded and the file is not corrupted. Re-run the parser manually with `--limit 10` to verify output.
 
-## Tested Models
+## Models
 
-This project has been tested with **GPT-5.4** (OpenAI) via OpenClaw. GPT-5.4 handles the full pipeline reliably — parsing 1000 items, filtering against the profile, and formatting the output. Context usage stays well below 25% with the JSON output format.
-
-If you test with other models, feel free to open an issue with your results.
+This skill works with any LLM supported by OpenClaw. Larger cloud models (e.g. from OpenAI, Anthropic, or Google) tend to produce the most reliable results when filtering and ranking against a nuanced interest profile.
 
 ## Background
 
