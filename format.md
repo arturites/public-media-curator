@@ -60,11 +60,6 @@ Link zur Mediathek:
 
 # Extraction Rules
 
-If the runtime is available on the page, extract it.
-
-The publication date can be extracted from the `<pubDate>`
-element of the RSS entry.
-
 If the runtime cannot be determined, write:
 
 Dauer: unbekannt
