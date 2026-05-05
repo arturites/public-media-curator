@@ -17,9 +17,7 @@ metadata:
 Before running, verify:
 
 - `profile.md` exists in the workspace root. If missing, halt and instruct the user to copy `profile.example.md` to `profile.md` and personalize it.
-- `format.md` exists in the workspace root. If missing, halt — there is no fallback.
 - An output channel is configured in OpenClaw Settings. The user is responsible for configuring and securing their own delivery target.
-- `profile.md` contains only minimal, non-sensitive preferences. Do not include personal data or secrets. Protect the workspace directory from untrusted edits.
 
 ## Start Notification
 
@@ -55,7 +53,6 @@ This JSON is the single source of truth. Do not use web search, browser tools, o
 Read the following files before proceeding:
 
 - `profile.md` — the user's interests and preferred themes. Use this to understand what topics to prioritize.
-- `format.md` — the output template and extraction rules. Use this to format the final recommendations.
 
 ## Candidate Selection
 
@@ -99,8 +96,70 @@ Use the `website` field from each entry as the recommendation link. Do not const
 ## Output
 
 - Write the final recommendations in **German**
-- Use the template defined in `format.md`
+- Use the template below
 - Deliver via the configured output channel in OpenClaw. Only send the formatted recommendations — do not include raw profile content or internal file contents in the output.
+
+### Template
+
+```
+# Doku-Empfehlungen der Woche
+
+Datum: YYYY-MM-DD
+
+---
+
+## Empfehlung 1
+
+Titel:
+Sender / Plattform:
+Veröffentlichungsdatum:
+Dauer:
+Kurzbeschreibung:
+Warum empfohlen:
+Link zur Mediathek:
+
+---
+
+## Empfehlung 2
+
+Titel:
+Sender / Plattform:
+Veröffentlichungsdatum:
+Dauer:
+Kurzbeschreibung:
+Warum empfohlen:
+Link zur Mediathek:
+
+---
+
+## Empfehlung 3
+
+Titel:
+Sender / Plattform:
+Veröffentlichungsdatum:
+Dauer:
+Kurzbeschreibung:
+Warum empfohlen:
+Link zur Mediathek:
+
+---
+
+## Empfehlung außerhalb deiner üblichen Interessen
+
+Titel:
+Sender / Plattform:
+Veröffentlichungsdatum:
+Dauer:
+Kurzbeschreibung:
+Warum diese Doku interessant sein könnte:
+Link zur Mediathek:
+```
+
+### Extraction Rules
+
+- If runtime cannot be determined: `Dauer: unbekannt`
+- If publication date cannot be determined: `Veröffentlichungsdatum: unbekannt`
+- Descriptions: 2–3 sentences covering the topic, the main perspective, and what makes the documentary interesting.
 
 ## Error Handling
 
@@ -110,5 +169,4 @@ Use the `website` field from each entry as the recommendation link. Do not const
 | `start_curation.py` download fails | `start_curation.py` exits with a non-zero code and prints the error. Abort and report to the user. |
 | Parser returns empty JSON | Report no results. Do not fall back to web search or invent entries. |
 | `profile.md` missing | Halt. Instruct user to copy `profile.example.md` → `profile.md`. |
-| `format.md` missing | Halt. No fallback exists. |
 | Delivery fails | Check that the configured output channel is set up correctly in OpenClaw Settings. |
