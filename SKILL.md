@@ -21,6 +21,14 @@ Before running, verify:
 - An output channel is configured in OpenClaw Settings. The user is responsible for configuring and securing their own delivery target.
 - `profile.md` contains only minimal, non-sensitive preferences. Do not include personal data or secrets. Protect the workspace directory from untrusted edits.
 
+## Start Notification
+
+Send the following message immediately via the configured output channel before any data fetching, downloading, or LLM calls begin:
+
+> 📺 On it. Combing through the archives for something worth your time – back in up to 5 minutes.
+
+Do not begin any data fetching, downloading, or LLM calls before this message has been sent.
+
 ## Data Source
 
 Run the following command to generate the input JSON:
