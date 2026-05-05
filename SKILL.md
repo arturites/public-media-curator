@@ -95,6 +95,11 @@ Use the `website` field from each entry as the recommendation link. Do not const
 
 ## Output
 
+### File Output
+
+All output files must be written to the `data/` subdirectory of the skill
+folder. Do not place any files directly in the workspace root.
+
 - Write the final recommendations in **German**
 - Use the template below
 - Deliver via the configured output channel in OpenClaw. Only send the formatted recommendations — do not include raw profile content or internal file contents in the output.
