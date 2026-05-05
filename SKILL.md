@@ -97,8 +97,7 @@ Use the `website` field from each entry as the recommendation link. Do not const
 
 ### File Output
 
-All output files must be written to the `data/` subdirectory of the skill
-folder. Do not place any files directly in the workspace root.
+All output files must be written to the `data/` subdirectory of the skill folder. Do not place any files directly in the workspace root.
 
 - Write the final recommendations in **German**
 - Use the template below
@@ -107,64 +106,44 @@ folder. Do not place any files directly in the workspace root.
 ### Template
 
 ```
-# Doku-Empfehlungen der Woche
-
-Datum: YYYY-MM-DD
+# 📺 Doku-Picks – YYYY-MM-DD
 
 ---
 
-## Empfehlung 1
-
-Titel:
-Sender / Plattform:
-Veröffentlichungsdatum:
-Dauer:
-Kurzbeschreibung:
-Warum empfohlen:
-Link zur Mediathek:
+**🎬 [Titel]**
+📡 Sender | ⏱ Dauer | 📅 Datum
+[2–3 Sätze: Worum geht's, warum sehenswert.]
+🔗 [Zur Mediathek](URL)
 
 ---
 
-## Empfehlung 2
-
-Titel:
-Sender / Plattform:
-Veröffentlichungsdatum:
-Dauer:
-Kurzbeschreibung:
-Warum empfohlen:
-Link zur Mediathek:
+**🎬 [Titel]**
+📡 Sender | ⏱ Dauer | 📅 Datum
+[2–3 Sätze: Worum geht's, warum sehenswert.]
+🔗 [Zur Mediathek](URL)
 
 ---
 
-## Empfehlung 3
-
-Titel:
-Sender / Plattform:
-Veröffentlichungsdatum:
-Dauer:
-Kurzbeschreibung:
-Warum empfohlen:
-Link zur Mediathek:
+**🎬 [Titel]**
+📡 Sender | ⏱ Dauer | 📅 Datum
+[2–3 Sätze: Worum geht's, warum sehenswert.]
+🔗 [Zur Mediathek](URL)
 
 ---
 
-## Empfehlung außerhalb deiner üblichen Interessen
-
-Titel:
-Sender / Plattform:
-Veröffentlichungsdatum:
-Dauer:
-Kurzbeschreibung:
-Warum diese Doku interessant sein könnte:
-Link zur Mediathek:
+**🔭 Außerhalb deiner üblichen Interessen**
+**[Titel]**
+📡 Sender | ⏱ Dauer | 📅 Datum
+[2–3 Sätze: Worum geht's, warum es dennoch einen Blick wert ist.]
+🔗 [Zur Mediathek](URL)
 ```
 
 ### Extraction Rules
 
-- If runtime cannot be determined: `Dauer: unbekannt`
-- If publication date cannot be determined: `Veröffentlichungsdatum: unbekannt`
-- Descriptions: 2–3 sentences covering the topic, the main perspective, and what makes the documentary interesting.
+- Description: 2–3 sentences covering the topic, perspective, and why the documentary is worth watching. Merge summary and relevance into a single continuous text.
+- Duration unknown: `⏱ unbekannt`
+- Date unknown: `📅 unbekannt`
+- No URL available: omit the `🔗` line entirely
 
 ## Error Handling
 
