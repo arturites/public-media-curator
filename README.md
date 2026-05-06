@@ -22,13 +22,6 @@ MediathekView (Filmliste)  →  Python Parser  →  OpenClaw  →  Output Channe
 3. OpenClaw reads the JSON, matches it against your interest profile, and picks the best recommendations.
 4. Results are delivered via your configured OpenClaw output channel.
 
-## Repository Structure
-
-| File | Purpose |
-|---|---|
-| `SKILL.md` | OpenClaw skill definition. Documents the full pipeline, interest profile, and output format. Triggered via `/public_media_curator`. |
-| `scripts/parse_filmliste.py` | Downloads and parses the MediathekView film list. |
-
 ## Prerequisites
 
 * A running [OpenClaw](https://openclaw.ai) instance with Python 3 available in the container
