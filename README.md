@@ -26,10 +26,6 @@ MediathekView (Filmliste)  →  Python Parser  →  OpenClaw  →  Output Channe
 
 * A running [OpenClaw](https://openclaw.ai) instance with Python 3 available in the container
 * A configured output channel connected to OpenClaw
-* The film list added to `.gitignore` (it's ~70 MB and should not be committed):
-  ```
-  Filmliste-akt.xz
-  ```
 
 ## Usage
 
