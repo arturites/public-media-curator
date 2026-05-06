@@ -75,6 +75,8 @@ Map `{content_type}` to a display label:
 - `movies` → `Movie Picks`
 - `series` → `Series Picks`
 
+After receiving the user's reply, do not announce next steps, describe your plan, or send any intermediate updates. Proceed silently to the Start Notification below.
+
 ## Start Notification
 
 Send the following message immediately via the configured output channel before any data fetching, downloading, or LLM calls begin:
