@@ -70,12 +70,12 @@ Before sending the start notification or fetching any data, ask the user:
 
 Wait for the user's reply. Accept one of: `documentaries`, `movies`, `series` (case-insensitive). If the reply is unclear or does not match one of these options, ask once more. Store the result as `{content_type}` for use in the steps below.
 
+**IMPORTANT: After the user replies, your very next output to the user MUST be the Start Notification message defined below — exactly that text and nothing else. Do not acknowledge the reply, do not summarize what you understood, do not describe your plan, do not list steps, do not narrate tool calls. Silence between the user's reply and the Start Notification.**
+
 Map `{content_type}` to a display label:
 - `documentaries` → `Documentary Picks`
 - `movies` → `Movie Picks`
 - `series` → `Series Picks`
-
-After receiving the user's reply, do not announce next steps, describe your plan, or send any intermediate updates. Proceed silently to the Start Notification below.
 
 ## Start Notification
 
