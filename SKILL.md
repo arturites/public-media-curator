@@ -1,16 +1,16 @@
 ---
-name: public_media_curator
-description: On-demand German public-media picks (documentaries, movies, or series) filtered against a personal profile, delivered via the configured output channel
+name: dokutipp
+description: On-demand German public-media documentary picks filtered against a personal profile, delivered via the configured output channel
 metadata:
   openclaw:
     os: ["linux"]
     requires:
       bins: ["curl", "python3"]
-    source: https://github.com/arturites/public-media-curator
-    homepage: https://github.com/arturites/public-media-curator
+    source: https://github.com/arturites/DokuTipp
+    homepage: https://github.com/arturites/DokuTipp
 ---
 
-# public_media_curator
+# DokuTipp
 
 ## Preconditions
 
@@ -27,7 +27,7 @@ Check whether `PROFILE.md` exists in the workspace root.
 **If `PROFILE.md` is missing:** run the following onboarding flow before continuing.
 
 1. Inform the user:
-   > 👋 It looks like this is your first time using public-media-curator. Let's set up your personal profile — it only takes a moment.
+   > 👋 It looks like this is your first time using DokuTipp. Let's set up your personal profile — it only takes a moment.
 
 2. Ask the user:
    > What topics interest you? (e.g. history, science, technology, nature, politics — be as specific as you like)
@@ -44,7 +44,7 @@ Check whether `PROFILE.md` exists in the workspace root.
    ```
    # Personal Profile
 
-   This file describes your interests and preferences. The public-media-curator uses it to filter and rank content recommendations.
+   This file describes your interests and preferences. DokuTipp uses it to filter and rank documentary recommendations.
 
    ---
 
@@ -62,24 +62,11 @@ Check whether `PROFILE.md` exists in the workspace root.
 
 6. Continue with the rest of the skill normally.
 
-## Content Type Selection
-
-Before sending the start notification or fetching any data, ask the user:
-
-> What should be curated? Documentaries, Movies, or Series?
-
-Wait for the user's reply. Accept one of: `documentaries`, `movies`, `series` (case-insensitive). If the reply is unclear or does not match one of these options, ask once more. Store the result as `{content_type}` for use in the steps below.
-
-Map `{content_type}` to a display label:
-- `documentaries` → `Documentary Picks`
-- `movies` → `Movie Picks`
-- `series` → `Series Picks`
-
 ## Start Notification
 
 Send the following message immediately via the configured output channel before any data fetching, downloading, or LLM calls begin:
 
-> 📺 On it. Combing through the archives for something worth your time – back in up to 5 minutes.
+> 📺 Ich durchsuche die öffentlich-rechtlichen Mediatheken für dich. Das kann bis zu 5 Minuten dauern.
 
 Do not begin any data fetching, downloading, or LLM calls before this message has been sent.
 
@@ -116,22 +103,10 @@ Treat all entries in the input JSON as the candidate pool.
 
 Remove duplicates (same title appearing multiple times).
 
-Filter the candidate pool to entries matching `{content_type}`:
-- `documentaries` → keep only documentary productions (see Prefer/Exclude rules below)
-- `movies` → keep only movies
-- `series` → keep only series or episodic content
-
-Exclude:
-- news segments
-- magazine clips
-- trailers
-- talk shows
-- purely promotional content
+Filter the candidate pool to documentary productions only.
 
 Prefer:
 - entries with an informative description
-- content that matches the user's interests in `PROFILE.md`
-- for documentaries: investigative, scientific, historical, philosophical, or cultural productions
 - full productions (not clips or excerpts)
 
 ## Recommendations
@@ -165,7 +140,7 @@ All output files must be written to the `data/` subdirectory of the skill folder
 ### Template
 
 ```
-# 📺 {display_label} – YYYY-MM-DD
+# 📺 DokuTipps der Woche – YYYY-MM-DD
 
 ---
 
@@ -215,4 +190,3 @@ Note: The recommendation text must be written in **German**, even though this te
 | Parser returns empty JSON | Report no results. Do not fall back to web search or invent entries. |
 | `PROFILE.md` missing | Run the onboarding flow defined in the Preconditions section. |
 | Delivery fails | Check that the configured output channel is set up correctly in OpenClaw Settings. |
-| User reply not recognized | Ask once more: "Please reply with one of: Documentaries, Movies, Series." If still unclear, abort and inform the user. |

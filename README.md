@@ -1,6 +1,6 @@
-# public-media-curator
+# DokuTipp
 
-A self-hosted content curator for German public-service media (e. g. ARD, ZDF or Arte).
+A self-hosted documentary curator for German public-service media (e. g. ARD, ZDF or Arte).
 
 There's a lot of great content buried across the various Mediatheken — documentaries, reports, deep dives — but discovering it means clicking through multiple apps and websites. This project fixes that: it downloads the official MediathekView film list, filters it against your interests, and sends you a compact list of recommendations. **Mediathek highlights without the endless search.**
 
@@ -30,11 +30,11 @@ MediathekView (Filmliste)  →  Python Parser  →  OpenClaw  →  Output Channe
 ## Usage
 
 ```bash
-openclaw skills install public-media-curator
+openclaw skills install dokutipp
 ```
 
 ```
-/public_media_curator
+/dokutipp
 ```
 
 ## Models
