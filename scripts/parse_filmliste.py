@@ -93,6 +93,13 @@ def main() -> None:
         help="Maximum number of output entries (default: no limit)",
     )
     parser.add_argument(
+        "--min-duration",
+        type=int,
+        default=0,
+        metavar="MINUTES",
+        help="Exclude entries shorter than MINUTES minutes (default: 0)",
+    )
+    parser.add_argument(
         "--channels",
         nargs="+",
         default=["ARD", "ZDF", "ARTE.DE"],
@@ -138,6 +145,14 @@ def main() -> None:
 
         if "Audiodeskription" in value[IDX_TITEL]:
             continue
+
+        if args.min_duration > 0:
+            try:
+                h, m, _s = value[IDX_DAUER].split(":")
+                if int(h) * 60 + int(m) < args.min_duration:
+                    continue
+            except (ValueError, AttributeError):
+                continue
 
         results.append(
             {
