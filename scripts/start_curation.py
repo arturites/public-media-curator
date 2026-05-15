@@ -37,4 +37,7 @@ else:
 
 parser = Path(__file__).parent / "parse_filmliste.py"
 log("Starting parse_filmliste.py ...")
-subprocess.run([sys.executable, str(parser), str(FILMLISTE), "--limit", "1337"], check=True)
+subprocess.run(
+    [sys.executable, str(parser), str(FILMLISTE), "--limit", "1337", "--min-duration", "42"],
+    check=True,
+)
